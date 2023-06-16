@@ -3,13 +3,16 @@ import {v4 as UUID} from "uuid";
 export class Recado {
     private  _id: string;
 
-    constructor(private _title: string, private _description: string){
+    constructor(private _title: string, private _description: string, private _userId: string){
             this._id = UUID();
 
     }
 
     public get id():string{
         return this._id
+    }
+    public get userId():string{
+        return this._userId
     }
 
     public get title():string{

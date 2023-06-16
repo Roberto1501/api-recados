@@ -18,11 +18,15 @@
         }
 
         public get email():string{
-            return this.email;
+            return this._email;
+        }
+
+        public set email(novoEmail:string){
+             this._email = novoEmail;
         }
 
         public get senha():string{
-            return this.senha;
+            return this._senha;
         }
 
         public set senha(novaSenha:string){
