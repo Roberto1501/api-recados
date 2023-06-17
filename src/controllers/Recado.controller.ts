@@ -58,7 +58,7 @@ export  class RecadoController{
             const {userId} = req.params
             const {id} = req.params
 
-            if(!id){
+            if(!userId){
                 return res.status(401).send({ok:false, message:"Informe id do usuario"})
             }
 
@@ -115,6 +115,40 @@ export  class RecadoController{
            
                 
 
+        } catch (error) {
+            return res.status(500).send({ok:false, message: error})
+        }
+    }
+
+    public deleteRecado(req:Request, res:Response){
+
+        try {
+
+            const{userId} = req.params
+            const{id} = req.params
+
+            if(!userId){
+                return res.status(400).send({ok:false, message: "informe o id do usuário"})
+            }
+
+            const usuario = users.find((user)=> user.id == userId)
+            if(!usuario){
+                return res.status(404).send({ok:false, message:"Id do usuário não encontrado"})
+            }
+
+            const recadoFind = recados.findIndex((recado)=>recado.id == id)
+
+            if(recadoFind == -1){
+                return res.status(404).send({ok:false, message:"id do recado informado não corréto"})
+            }
+
+            recados.splice(recadoFind,1)
+
+            const userRecados = recados.filter((recado)=> recado.userId == userId)
+
+            return res.status(200).send({ok: true, message: "recado excluído com sucesso", data: userRecados })
+
+            
         } catch (error) {
             return res.status(500).send({ok:false, message: error})
         }

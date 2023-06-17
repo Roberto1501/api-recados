@@ -20,6 +20,8 @@ app.post("/user/:id/recado", new RecadoController().createRecado)
 
 app.get("/user/:userId/recado",new RecadoController().getAllRecado)
 app.put("/user/:userId/recado/:id",new RecadoController().updateRecado)
+app.delete("/user/:userId/recado/:id",new RecadoController().deleteRecado)
+
 
 
 
