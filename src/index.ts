@@ -18,7 +18,8 @@ app.delete("/user-delete",new UserController().deleteUser)
 
 app.post("/user/:id/recado", new RecadoController().createRecado)
 
-app.get("/user/:id/recado",new RecadoController().getAllRecado)
+app.get("/user/:userId/recado",new RecadoController().getAllRecado)
+app.put("/user/:userId/recado/:id",new RecadoController().updateRecado)
 
 
 
