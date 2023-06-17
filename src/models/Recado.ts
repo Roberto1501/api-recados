@@ -2,9 +2,11 @@ import {v4 as UUID} from "uuid";
 
 export class Recado {
     private  _id: string;
+    private _status: string;
 
     constructor(private _title: string, private _description: string, private _userId: string){
             this._id = UUID();
+            this._status = "visivel"
 
     }
 
@@ -13,6 +15,13 @@ export class Recado {
     }
     public get userId():string{
         return this._userId
+    }
+    public get status():string{
+        return this._status
+    }
+
+    public set status(newStatus:string){
+        this._status = newStatus
     }
 
     public get title():string{

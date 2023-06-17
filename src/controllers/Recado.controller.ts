@@ -87,10 +87,11 @@ export  class RecadoController{
 
                const {
                 title,
-                description
+                description,
+                status
             } = req.body
 
-            if(!title && !description){
+            if(!title && !description && !status){
                     return res.status(401).send({ok:false, message: "Informe novo titulo ou descrição do recado"})
     
             }
@@ -100,6 +101,9 @@ export  class RecadoController{
                 if(description){
                     recadoFind.description = description
 
+                }
+                if(status){
+                    recadoFind.status = status
                 }
                
                
