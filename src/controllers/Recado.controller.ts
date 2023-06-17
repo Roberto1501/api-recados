@@ -90,13 +90,18 @@ export  class RecadoController{
                 description
             } = req.body
 
-            if(!title || ! description){
+            if(!title && !description){
                     return res.status(401).send({ok:false, message: "Informe novo titulo ou descrição do recado"})
     
             }
+                if(title){
+                    recadoFind.title =  title
+                }
+                if(description){
+                    recadoFind.description = description
 
-               recadoFind.title =  title
-               recadoFind.description = description
+                }
+               
                
 
                return res.status(200).send({ok:true, message:"Recado Modificado com sucesso", data: recadosUsuario })
