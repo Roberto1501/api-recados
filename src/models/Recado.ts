@@ -1,5 +1,12 @@
 import {v4 as UUID} from "uuid";
 
+
+declare module 'express-serve-static-core' {
+    interface Request {
+        recado?: Recado;
+    }
+}
+
 export class Recado {
     private  _id: string;
     private _status: string;
