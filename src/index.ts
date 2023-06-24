@@ -13,12 +13,13 @@ app.use(cors())
 //user
 app.post("/register", new UserMiddleware().validateUserCreation, new UserController().CreateUser )
 app.post("/login", new UserMiddleware().ValidateUserExists, new UserController().login )
-app.get("/get-all", new UserController().getUser )
+app.get("/get-all", new UserMiddleware().getAllUsers, new UserController().getUser )
+app.delete("/user-delete", new UserMiddleware().Delete,new UserController().deleteUser)
+
 
 
 app.put("/user-new-password", new UserController().updateUserPassword)
 
-app.delete("/user-delete",new UserController().deleteUser)
 
 
 //Recado

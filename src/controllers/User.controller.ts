@@ -13,7 +13,7 @@ export class UserController{
             
         if (!newUser) {
            
-            return res.status(400).send({ok: false, message: "User undefined"});}
+            return res.status(400).send({ok: false, message: "Usuario undefined"});}
             
             users.push(newUser);
             
@@ -68,11 +68,14 @@ export class UserController{
     public getUser(req:Request,res:Response){
         try {
 
-            if(users.length == 0){
-                return res.status(401).send({ok:false, message: "nenhum usuario cadastrado"})
-            }
-
-                return res.status(200).send({ok:true, message: "usuarios cadastrados no sistema", dataUser: users})
+            const usuario = users.map(user=> {
+                return{
+                    nome: user.nome,
+                    email: user.email
+                }
+            })
+          
+                return res.status(200).send({ok:true, message: "usuarios cadastrados no sistema", dataUsers: usuario  })
             
         } catch (error) {
             return res.status(500).send({ok:false, message: error})

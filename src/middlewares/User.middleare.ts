@@ -13,6 +13,10 @@ import { User } from "../models/User";
                 senha
             } = req.body
 
+            if(!nome || !email || !senha){
+                return res.status(400).send({ok:false, message: "Preencha todos os campos"})
+            }
+
             const userExist = users.find((user)=>{
                 return user.email == email
             })
@@ -50,5 +54,21 @@ import { User } from "../models/User";
               
             req.user = usuerExists
             next()
+    }
+
+    public getAllUsers(req:Request, res:Response, next: NextFunction){
+
+        if(users.length == 0){
+            return res.status(401).send({ok:false, message: "nenhum usuario cadastrado"})
+        }
+
+    
+
+        next()
+
+    }
+
+    public Delete(req:Request, res:Response, next:NextFunction){
+
     }
 }
