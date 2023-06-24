@@ -42,7 +42,6 @@ import { User } from "../models/User";
             const {email, senha}= req.body
             
             const usuerExists = users.find(user=> user.email == email)
-            console.log(usuerExists)
             if(!usuerExists){
                 return res.status(404).send({ok:false, message: "Email ou senha incorretos, tente novamente"})
             }
@@ -90,5 +89,22 @@ import { User } from "../models/User";
 
 
         
+    }
+
+    public passwordUpdateLogged(req:Request, res: Response, next: NextFunction){
+
+                const {userId} = req.params
+         
+
+            const FindUser = users.find(usuario=> usuario.id == userId)
+
+            if(!FindUser){
+                return res.status(400).send({ok:false, message:"Id do usuario incorreto"})
+            }
+
+            req.user = FindUser
+
+            next()
+     
     }
 }

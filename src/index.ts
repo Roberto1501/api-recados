@@ -18,7 +18,7 @@ app.delete("/:userId/user-delete", new UserMiddleware().Delete,new UserControlle
 
 
 
-app.put("/user-new-password", new UserController().updateUserPassword)
+app.put("/:userId/user-new-password",new UserMiddleware().passwordUpdateLogged, new UserController().updateUserPassword)
 
 
 

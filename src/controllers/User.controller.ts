@@ -61,7 +61,6 @@ export class UserController{
             
         } catch (error) {
             res.status(500).send({ok:false, message: error})
-            console.log(error)
         }
     }
 
@@ -85,22 +84,22 @@ export class UserController{
 
     public updateUserPassword(req:Request, res:Response){
         try {
-            const{
-                email,
-                senha
-            } = req.body
+            const {newPassword} = req.body
 
-            const usuario = users.find((user)=>{
-              return  user.email == email
-            })
+           const FindUser = req.user
 
-            if(!usuario){
-                return res.status(400).send({ok:false, message: "email não cadastrado"})
+            if(!FindUser){
+                return res.status(400).send({ok:false, message: "Usu´rio invalido"})
             }
 
-            usuario.senha = senha
+            if(!newPassword){
+                return res.status(400).send({ok:false, message: "Senha necessária"})
+            }
 
-            return res.status(200).send({ok: true, message:"Senha modificada com sucesso", data: usuario})
+
+            FindUser.senha =  newPassword
+
+            return res.status(200).send({ok: true, message:"Senha modificada com sucesso"})
             
         } catch (error) {
             return res.status(500).send({ok:false, message: error})
