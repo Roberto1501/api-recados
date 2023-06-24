@@ -70,5 +70,25 @@ import { User } from "../models/User";
 
     public Delete(req:Request, res:Response, next:NextFunction){
 
+        const {userId} = req.params
+
+        if(!userId){
+            return res.status(400).send({ok:false, message: "Informe o id do usuário"})
+        }
+
+        const userToDelete = users.findIndex(user=> user.id == userId)
+
+        if(userToDelete == -1 ){
+            return res.status(404).send({ok:false, message: "Id Informado incorreto"})
+        }
+
+        req.userIndex = userToDelete
+
+
+
+        next()
+
+
+        
     }
 }

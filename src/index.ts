@@ -14,7 +14,7 @@ app.use(cors())
 app.post("/register", new UserMiddleware().validateUserCreation, new UserController().CreateUser )
 app.post("/login", new UserMiddleware().ValidateUserExists, new UserController().login )
 app.get("/get-all", new UserMiddleware().getAllUsers, new UserController().getUser )
-app.delete("/user-delete", new UserMiddleware().Delete,new UserController().deleteUser)
+app.delete("/:userId/user-delete", new UserMiddleware().Delete,new UserController().deleteUser)
 
 
 

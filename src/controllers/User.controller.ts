@@ -71,7 +71,8 @@ export class UserController{
             const usuario = users.map(user=> {
                 return{
                     nome: user.nome,
-                    email: user.email
+                    email: user.email,
+                    id: user.id
                 }
             })
           
@@ -108,20 +109,17 @@ export class UserController{
 
     public deleteUser(req:Request, res:Response){
         try {
-            const{
-                email
-            } = req.body
+           const userToDelete = req.userIndex
 
-            const usuario = users.findIndex((user)=> {
-                return user.email == email
-            })
-
-            if(usuario == -1){
-                return res.status(400).send({ok:false, message: "Email do usuaário não encontrado, por favor tente novamente"})
+            if(userToDelete == undefined){
+                return res.status(400).send({ok:false, message: "Usuário undefined"})
             }
+             users.splice(userToDelete,1)
 
-            users.splice(usuario,1)
-                return res.status(200).send({ok:true, message:"Usuário excluido com sucesso", data: users})
+            
+
+           return res.status(200).send({ok:true, message: "Usuário deletado com sucesso ", NewData: users})
+
             
         } catch (error) {
             return res.status(500).send({ok:false, message: error})
