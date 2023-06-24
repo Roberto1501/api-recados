@@ -1,13 +1,20 @@
 import express from "express"
 import { UserController } from "./controllers/User.controller";
 import { RecadoController } from "./controllers/Recado.controller";
+import cors from 'cors'
+import { UserMiddleware } from "./middlewares/User.middleare";
+
 
 const app = express();
 app.use(express.json())
-//user
-app.post("/register", new UserController().CreateUser )
 
-app.post("/login", new UserController().login )
+app.use(cors())
+
+//user
+app.post("/register", new UserMiddleware().validateUserCreation, new UserController().CreateUser )
+app.post("/login", new UserMiddleware().ValidateUserExists, new UserController().login )
+app.get("/get-all", new UserController().getUser )
+
 
 app.put("/user-new-password", new UserController().updateUserPassword)
 

@@ -8,23 +8,15 @@ export class UserController{
     public CreateUser(req:Request, res:Response){
         try {
 
-            const {
-                nome,
-                email,
-                senha
-            } = req.body
-
-            const verifyUserExists = users.find((user)=> {
-                return user.email == email
-            })
-
-            if(verifyUserExists){
-                return res.status(400).send({ok:false, message:"Email já cadastrado"})
-            }
+            const newUser = req.user
+           
             
-            let newUser = new User(nome, email, senha);
+        if (!newUser) {
+           
+            return res.status(400).send({ok: false, message: "User undefined"});}
             
             users.push(newUser);
+            
 
             return res.status(200).send({Ok:true, data:newUser})
 
@@ -43,6 +35,8 @@ export class UserController{
                 senha
             } = req.body
 
+            // Validação somente para teste de API pois em caso reais ao meu ver poderia ser feita diretamente
+            // no front
             if(!email){
                 return res.status(400).send({ok:false, message:"Email necessário"})
             }
@@ -51,20 +45,15 @@ export class UserController{
                 return res.status(400).send({ok:false, message:"senha necessária"})
             }
           
+            // Busco o usuario com mesmo email do digitado pelo usuario para enviar o ID como data
+            // verificação  se email e senha são corretos está sendo feito
+            //No Middleware
 
-            const usuario = users.find((user)=>{
-             return user.email == email
-               
-            })
-                
-            if(!usuario){
-                return res.status(401).send({ok: false, message: "Usuário ou senha invalidos, verique os dados e tente novamente"})
-            }
+            //Pego A variavel que contem o usuário validado que criei no Middleware e mandei na Requisição
+            const userExists = req.user
+            
            
-            if(usuario.senha !== senha){
-                return res.status(401).send({ok:false, message: "Usuário ou senha invalidos, verique os dados e tente novamente"})
-            }
-            return res.status(200).send({ok:true, message: "Usuario logado com sucesso", data: usuario.id})
+            return res.status(200).send({ok:true, message: "Usuario logado com sucesso", data: userExists?.id})
 
 
             
@@ -73,6 +62,20 @@ export class UserController{
         } catch (error) {
             res.status(500).send({ok:false, message: error})
             console.log(error)
+        }
+    }
+
+    public getUser(req:Request,res:Response){
+        try {
+
+            if(users.length == 0){
+                return res.status(401).send({ok:false, message: "nenhum usuario cadastrado"})
+            }
+
+                return res.status(200).send({ok:true, message: "usuarios cadastrados no sistema", dataUser: users})
+            
+        } catch (error) {
+            return res.status(500).send({ok:false, message: error})
         }
     }
 

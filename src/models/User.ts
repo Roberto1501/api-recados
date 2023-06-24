@@ -1,5 +1,14 @@
  import {v4 as UUID } from "uuid"
  
+ // o  codigo que segue serve para passar o conteudo do middlweare na requisição
+ // Estou modificando dentro da interface Request do modulo express-serve-static-core
+ //Estou adicionando  uma propriedade opcional chamada user estamos tipando ela com a class User
+ // Assim posso mandar um usuario do tipo User dentro da requisição.
+ declare module 'express-serve-static-core' {
+    interface Request {
+        user?: User;
+    }
+}
  export  class User{
         private _id :string;
         
