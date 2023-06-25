@@ -11,7 +11,6 @@ export  class RecadoController{
             
 
             const newNote = req.recado
-            console.log(newNote)
             if(!newNote){
                 return res.status(400).send({ok:false, message:"recado undefined"})
             }
@@ -42,35 +41,10 @@ export  class RecadoController{
     public updateRecado(req:Request, res:Response){
         try {
 
-            const {userId} = req.params
-            const {id} = req.params
-
-            if(!userId){
-                return res.status(401).send({ok:false, message:"Informe id do usuario"})
-            }
-
-
-            const usuario = users.find((usuario)=> 
-            {
-                return usuario.id == userId}
-                
-                )   
-
-               if( !usuario){
-                        return res.status(404).send({ok:false , message: "Usuario não encontrado"})
-               }
-
-               const recadosUsuario = recados.filter((recado)=> recado.userId == userId)
-
-               if(!recadosUsuario){
-                return res.status(404).send({ok:false, message: "Usário não possui recados"})
-               }
-          
-               const recadoFind = recados.find((recado)=> recado.id == id)
-
-               if(!recadoFind){
-                return res.status(404).send({ok:false, message:"Recado não encontrado"})
-               }
+                const recadoFind = req.recado
+                if(!recadoFind){
+                    return res.status(400).send({ok:false, message: "Id undefined"})
+                }
 
                const {
                 title,
@@ -92,10 +66,12 @@ export  class RecadoController{
                 if(status){
                     recadoFind.status = status
                 }
+
+                const AllUserRecados = recados.filter(recado=> recado.userId == recadoFind.userId)
                
                
 
-               return res.status(200).send({ok:true, message:"Recado Modificado com sucesso", data: recadosUsuario })
+               return res.status(200).send({ok:true, message:"Recado Modificado com sucesso", data: AllUserRecados })
 
          
                 

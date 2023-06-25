@@ -21,8 +21,8 @@ app.put("/:userId/user-new-password",new UserMiddleware().passwordUpdateLogged, 
 // recados
 app.post("/user/:userId/recado",new RecadoMiddleware().validatingRecadoCreation, new RecadoController().createRecado)
 
-app.get("/user/:userId/recado",new RecadoMiddleware().getRecadosValidation,new RecadoController().getAllRecado)
-app.put("/user/:userId/recado/:id",new RecadoController().updateRecado)
+app.get("/user/:userId/recado",new RecadoMiddleware().checkUserId,new RecadoController().getAllRecado)
+app.put("/user/:userId/recado/:id",new RecadoMiddleware().checkRecadoId,new RecadoMiddleware().checkRecadoId ,new RecadoController().updateRecado)
 app.delete("/user/:userId/recado/:id",new RecadoController().deleteRecado)
    
 return app

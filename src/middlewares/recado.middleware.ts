@@ -28,7 +28,7 @@ export class RecadoMiddleware{
             next()
     }
 
-    public  getRecadosValidation(req:Request,res:Response, next:NextFunction){
+    public  checkUserId(req:Request,res:Response, next:NextFunction){
         
         const {userId} = req.params
 
@@ -44,5 +44,29 @@ export class RecadoMiddleware{
        
     }
 
+    public checkRecadoId(req:Request, res:Response, next:NextFunction){
+        const userSearched = req.user
+
+        const {id}= req.params
+
+        if(!id){
+            return res.status(400).send({ok:false, message: "Informe o id do recado"})
+        }
+
+        const recadoFind = recados.find(recado=> recado.id == id)
+
+        if(!recadoFind){
+            return res.status(400).send({ok:false, message: "Id do recado invaido"})
+        }
+
+        req.recado = recadoFind
+
+        next()
+
+    }
+
    
+
 }
+
+
