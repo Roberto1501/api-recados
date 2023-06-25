@@ -23,7 +23,7 @@ app.post("/user/:userId/recado",new RecadoMiddleware().validatingRecadoCreation,
 
 app.get("/user/:userId/recado",new RecadoMiddleware().checkUserId,new RecadoController().getAllRecado)
 app.put("/user/:userId/recado/:id",new RecadoMiddleware().checkRecadoId,new RecadoMiddleware().checkRecadoId ,new RecadoController().updateRecado)
-app.delete("/user/:userId/recado/:id",new RecadoController().deleteRecado)
+app.delete("/user/:userId/recado/:id",new RecadoMiddleware().checkRecadoId,new RecadoMiddleware().checkRecadoId,new RecadoController().deleteRecado)
    
 return app
 }

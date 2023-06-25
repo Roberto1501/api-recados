@@ -91,27 +91,21 @@ export  class RecadoController{
 
         try {
 
-            const{userId} = req.params
-            const{id} = req.params
+          const recadoFind = req.recado
 
-            if(!userId){
-                return res.status(400).send({ok:false, message: "informe o id do usuário"})
-            }
+          if(!recadoFind){
+            return res.status(400).send({ok:false, message: "id undefined"})
+          }
 
-            const usuario = users.find((user)=> user.id == userId)
-            if(!usuario){
-                return res.status(404).send({ok:false, message:"Id do usuário não encontrado"})
-            }
+          const recadoFindIndex = recados.findIndex(recado=>recado.id == recadoFind.id)
 
-            const recadoFind = recados.findIndex((recado)=>recado.id == id)
-
-            if(recadoFind == -1){
+            if(recadoFindIndex == -1){
                 return res.status(404).send({ok:false, message:"id do recado informado não corréto"})
             }
 
-            recados.splice(recadoFind,1)
+            recados.splice(recadoFindIndex,1)
 
-            const userRecados = recados.filter((recado)=> recado.userId == userId)
+            const userRecados = recados.filter((recado)=> recado.userId == recado.userId)
 
             return res.status(200).send({ok: true, message: "recado excluído com sucesso", data: userRecados })
 
