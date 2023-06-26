@@ -65,7 +65,7 @@ export  class RecadoController{
             } = req.body
 
             if(!title && !description && !status){
-                    return res.status(401).send({ok:false, message: "Informe novo titulo ou descrição do recado"})
+                    return res.status(401).send({ok:false, message: "Informe novo titulo,descrição ou novo status do recado"})
     
             }
                 if(title){
