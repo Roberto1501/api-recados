@@ -17,7 +17,7 @@ export class UserController{
             users.push(newUser);
             
 
-            return res.status(200).send({Ok:true, data:newUser})
+            return res.status(200).send({Ok:true,message: "Usuario criado com sucesso", data:newUser})
 
 
             

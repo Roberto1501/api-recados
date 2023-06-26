@@ -29,7 +29,19 @@ export  class RecadoController{
           
             const SearchUser = req.user
              
-            const recadosUser = recados.filter(recado=> recado.userId == SearchUser?.id)
+            let recadosUser = recados.filter(recado=> recado.userId == SearchUser?.id)
+
+            const {status} = req.body
+            const{description} =req.body
+
+            if(status){
+                 recadosUser = recadosUser.filter(recados => recados.status == status)
+            }
+
+            if(description){
+                recadosUser = recadosUser.filter(recados=> recados.description == description)
+            }
+            
 
                 return res.status(200).send({ok:true, message: "Recados buscados com sucesso", data: recadosUser })
             
