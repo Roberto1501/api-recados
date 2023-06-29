@@ -31,11 +31,11 @@ export  class RecadoController{
              
             let recadosUser = recados.filter(recado=> recado.userId == SearchUser?.id)
 
-            const {status} = req.body
+            const {statusRecado} = req.body
             const{description} =req.body
 
-            if(status){
-                 recadosUser = recadosUser.filter(recados => recados.status == status)
+            if(statusRecado){
+                 recadosUser = recadosUser.filter(recados => recados.statusRecado == statusRecado)
             }
 
             if(description){
@@ -61,10 +61,10 @@ export  class RecadoController{
                const {
                 title,
                 description,
-                status
+                statusRecado
             } = req.body
 
-            if(!title && !description && !status){
+            if(!title && !description && !statusRecado){
                     return res.status(401).send({ok:false, message: "Informe novo titulo,descrição ou novo status do recado"})
     
             }
@@ -75,8 +75,8 @@ export  class RecadoController{
                     recadoFind.description = description
 
                 }
-                if(status){
-                    recadoFind.status = status
+                if(statusRecado){
+                    recadoFind.statusRecado = statusRecado
                 }
 
                 const AllUserRecados = recados.filter(recado=> recado.userId == recadoFind.userId)
